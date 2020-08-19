@@ -21,7 +21,7 @@ namespace multitenancy_db.Controllers
         //Check TenantResolver.cs out, and everything will become more clear.
 
         [HttpGet]
-        public ActionResult Blog(int page, int size, string tenantId)
+        public ActionResult Blog(int page, int size, [FromQuery] string tenantId)
         {
             var blogs = _db.Blogs
                 .Skip((page - 1) * size)
@@ -31,7 +31,7 @@ namespace multitenancy_db.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddBlog([FromBody] Blog blog, string tenantId)
+        public ActionResult AddBlog([FromBody] Blog blog, [FromQuery] string tenantId)
         {
             _db.Blogs.Add(blog);
             _db.SaveChanges();
@@ -39,7 +39,7 @@ namespace multitenancy_db.Controllers
         }
 
         [HttpGet("{blogId}/posts")]
-        public ActionResult GetPosts([FromRoute] int blogId, string tenantId)
+        public ActionResult GetPosts([FromRoute] int blogId, [FromQuery] string tenantId)
         {
             var posts = _db.Blogs
                 .FirstOrDefault(p => p.Id == blogId)
@@ -49,7 +49,7 @@ namespace multitenancy_db.Controllers
         }
 
         [HttpPost("{blogId}/posts")]
-        public ActionResult AddPost([FromBody] Post post, [FromRoute] int blogId, string tenantId)
+        public ActionResult AddPost([FromBody] Post post, [FromRoute] int blogId, [FromQuery] string tenantId)
         {
             var blog = _db.Blogs
                 .FirstOrDefault(p => p.Id == blogId);

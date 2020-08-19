@@ -30,12 +30,15 @@ namespace multitenancy_db
                     .AllowCredentials();
             }));
 
-            services.AddMultitenancy<Tenant, TenantResolver>();
-            //services.AddDbStrategy();
-            services.AddTableStrategy(Configuration);
-            //services.AddSchemaStrategy(Configuration);
+            //services.AddDbStrategy(Configuration);
+            //services.AddTableStrategy(Configuration);
+            services.AddSchemaStrategy(Configuration);
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(config =>
+                {
+                    config.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
             #region swagger
             services.AddSwaggerGen(c =>
             {

@@ -9,6 +9,7 @@
     <ProjectReference Include="..\DbBasedStrategy\DbBasedStrategy.csproj" />
     <ProjectReference Include="..\SchemaBasedStrategy\SchemaBasedStrategy.csproj" />
     <ProjectReference Include="..\TableBasedStrategy\TableBasedStrategy.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
