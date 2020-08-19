@@ -14,7 +14,7 @@ namespace multitenancy_db.Services
 
         public Task<TenantContext<Tenant>> ResolveAsync(HttpContext context)
         {
-            string key = context.Request.Query["tenant"];
+            string key = context.Request.Query["tenantId"];
             var tenant = Tenants.FirstOrDefault(t => t.Key == key);
             if (tenant == null)
             {

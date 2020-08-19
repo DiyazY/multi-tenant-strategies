@@ -12,16 +12,17 @@ namespace multitenancy_db.Services
     public static class DbStrategysResolver
     {
 
-        public static IServiceCollection AddDbStrategy(this IServiceCollection services)
+        public static IServiceCollection AddDbStrategy(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMultitenancy<Tenant, TenantResolver>();
+            var connectionString = configuration.GetConnectionString("db");
             services
                 .AddDbContext<DbBasedContext>((provider, options) =>
                 {
                     var tenant = provider.GetService<Tenant>();
                     options
                         .UseLazyLoadingProxies()
-                        .UseNpgsql(tenant.ConStr);
+                        .UseNpgsql(tenant?.ConStr ?? $"{connectionString}_tenant_0");
                 });
 
             return services;

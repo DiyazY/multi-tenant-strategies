@@ -38,7 +38,7 @@ namespace multitenancy_db.Controllers
             var newTenant = new Models.Tenant
             {
                 ConStr = $"{_configuration.GetConnectionString("db")}_{tenant}",
-                Key = $"tenant_{tenant}",
+                Key = tenant,
                 Name = tenant
             };
 
@@ -69,7 +69,7 @@ namespace multitenancy_db.Controllers
 
             var newTenant = new Models.Tenant
             {
-                Key = $"tenant_{tenant}",
+                Key = tenant,
                 Name = tenant
             };
 
@@ -94,7 +94,7 @@ namespace multitenancy_db.Controllers
 
             var newTenant = new Models.Tenant
             {
-                Key = $"tenant_{tenant}",
+                Key = tenant,
                 Name = tenant
             };
 
@@ -106,7 +106,7 @@ namespace multitenancy_db.Controllers
                         )
                         .ReplaceService<IModelCacheKeyFactory, ServiceModelCacheKeyFactory>();
 
-            new SchemaBasedContext(optionsBuilder.Options, tenant, true);
+            new SchemaBasedContext(optionsBuilder.Options, newTenant.Key, true);
 
             Services.TenantResolver.Tenants.Add(newTenant);// add new tenant to collection of tenants
             return Ok("Tenant was created");
